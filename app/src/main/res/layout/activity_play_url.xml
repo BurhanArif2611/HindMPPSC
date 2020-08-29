@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context=".activity.Live_Classes.PlayURLActivity">
+
+
+    <!-- <com.google.android.youtube.player.YouTubePlayerView
+         android:id="@+id/player"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         app:autoPlay="true"
+         android:focusable="true"
+         app:enableLiveVideoUi="true"
+         android:layout_below="@+id/tool_barLayout"
+         />-->
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:weightSum="5">
+
+        <EditText
+            android:id="@+id/input_etv"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="4"
+            android:background="@drawable/background_input"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Enter your Comment"
+            android:paddingLeft="@dimen/_10sdp"
+            android:textColor="@color/primary_text"
+            android:textColorHint="@color/secondary_text" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/send_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/colorPrimary"
+            android:src="@drawable/ic_send" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/read_comment_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="Read Comment > "
+        android:textColor="@color/white"
+        android:visibility="gone" />
+    <!--android:layout_above="@+id/bottom_layout"-->
+
+    <fragment
+        android:id="@+id/youtube_fragment"
+        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@+id/tool_barLayout" />
+
+    <include layout="@layout/tool_bar" />
+
+
+    <LinearLayout
+        android:id="@+id/more_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:visibility="gone"
+        >
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_circle_background"
+        android:src="@drawable/ic_more"
+        android:layout_margin="@dimen/_5sdp"
+        />
+    </LinearLayout>
+</RelativeLayout>

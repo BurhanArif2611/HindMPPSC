@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hindmppsc.exam">
+
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:allowClearUserData="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@drawable/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".activity.Prelims_Video_Course.ShowResultActivity"></activity>
+        <activity android:name=".activity.Prelims_Video_Course.MockTestResultActivity" />
+        <activity android:name=".activity.TaskForYouPrelimsActivity" />
+        <activity android:name=".activity.Live_Classes.TermsConditionActivity" />
+        <activity android:name=".activity.Current_Affairs_Month_listActivity" />
+        <activity android:name=".activity.FaqActivity" />
+        <activity android:name=".activity.Current_Affairs_MonthActivity" />
+        <activity android:name=".activity.Complete_Current_AffairListActivity" />
+        <activity android:name=".activity.InterviewPreviousVideoActivity" />
+        <activity android:name=".activity.TaskForYouTypesActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.MockTestPrelimsActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.PrelimsPreviousPaperActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.VideoListActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.PaperUnitActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.Prelims_Video_Course_PackegeActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.PaperListActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.MaterialListActivity" />
+        <activity android:name=".activity.TaskforPrelims.TaskforPrelims_DateActivity" />
+        <activity android:name=".activity.TaskForMains_Activity" />
+        <activity android:name=".activity.Live_Classes.TaskForYou_InterviewsActivity" />
+        <activity android:name=".activity.TodayGSActivity" />
+        <activity android:name=".activity.PDFViewerActivity" />
+        <activity android:name=".activity.Update_Your_SelfActivity" />
+        <activity android:name=".activity.TermsConditionActivity" />
+        <activity android:name=".activity.SupportActivity" />
+        <activity android:name=".activity.WebviewActivity" />
+        <activity android:name=".activity.NotificationActivity" />
+        <activity android:name=".activity.Live_Classes.ReadCommentActivity" />
+        <activity android:name=".activity.PlayVideoActivity" />
+        <activity android:name=".activity.MyPurchaseActivity" />
+        <activity android:name=".activity.ForgotActivity" />
+        <activity android:name=".activity.Live_Classes.PlayURLActivity" />
+        <activity android:name=".activity.Live_Classes.LiveClassActivity" />
+        <activity android:name=".activity.Live_Classes.PaymentActivity" />
+        <activity android:name=".activity.Live_Classes.PackegeListActivity" />
+        <activity android:name=".activity.Live_Classes.SubjectActivity" />
+        <activity android:name=".activity.SignUpActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.DashboardActivity" />
+        <activity android:name=".activity.UpdateProfileActivity" />
+        <activity android:name=".activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <service android:name=".Firebase.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+</manifest>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">HIND MPPSC</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_internet">No Internet Found !</string>
+    <string name="no_data_found">No Data Found !</string>
+</resources>

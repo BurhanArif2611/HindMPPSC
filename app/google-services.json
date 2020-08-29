@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "85471543288",
+    "firebase_url": "https://hindmppsc-e310c.firebaseio.com",
+    "project_id": "hindmppsc-e310c",
+    "storage_bucket": "hindmppsc-e310c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85471543288:android:d0c59026eeee11d484e00d",
+        "android_client_info": {
+          "package_name": "com.hindmppsc.exam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85471543288-i35gmr2n8j1l2e0dtdibkog730smptgt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hindmppsc.exam",
+            "certificate_hash": "5172dfd381369325893b20a8917995cf22641942"
+          }
+        },
+        {
+          "client_id": "85471543288-hrpbbva9a7feq99j99kna34kben3gk7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDswU9LjRrHHW-tQAJ_slddeAePjxlLyrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85471543288-hrpbbva9a7feq99j99kna34kben3gk7s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

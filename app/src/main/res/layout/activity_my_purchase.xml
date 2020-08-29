@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login"
+    tools:context=".activity.MyPurchaseActivity">
+<include layout="@layout/tool_bar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/tool_barLayout">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tool_barLayout"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/previous_class_rcv"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tool_barLayout"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/other_paper_rcv"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tool_barLayout"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/other_course_rcv"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tool_barLayout"
+                android:layout_margin="@dimen/_10sdp"
+                android:id="@+id/current_affaire_rcv"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Data Found !"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/primary_text"
+        android:textSize="@dimen/text_size_20"
+        android:id="@+id/no_data_found_tv"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
+</RelativeLayout>
