@@ -99,7 +99,7 @@ public class NewPurchase_OtherCourse_Adapter extends RecyclerView.Adapter<NewPur
                     bundle.putString("Exam_type", listCoupon.getMaterialTypeId());
                     ErrorMessage.I(activity, PrelimsPreviousPaperActivity.class, bundle);
 
-                }else if (listCoupon.getMaterialTypeId().equals("Current Affairs Month ")|| listCoupon.getMaterialTypeId().equals("Current Affairs Month")) {
+                }else if (listCoupon.getMaterialTypeId().equals("Current Affairs Monthly ")|| listCoupon.getMaterialTypeId().equals("Current Affairs Monthly")) {
                     Bundle bundle = new Bundle();
                     bundle.putString("id", String.valueOf(listCoupon.getMaterialType()));
                     bundle.putString("exam_type", String.valueOf(listCoupon.getExamId()));

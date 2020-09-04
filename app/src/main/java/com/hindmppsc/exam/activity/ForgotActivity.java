@@ -2,8 +2,10 @@ package com.hindmppsc.exam.activity;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,7 +49,6 @@ public class ForgotActivity extends AppCompatActivity {
         if (UserAccount.isEmpty(emailIdEtv)) {
             if (UserAccount.isEmailValid(emailIdEtv)) {
                 ForgotOnServer();
-                
             } else {
                 UserAccount.EditTextPointer.setError("Email ID Invalid !");
                 UserAccount.EditTextPointer.requestFocus();
@@ -61,7 +62,6 @@ public class ForgotActivity extends AppCompatActivity {
         if (NetworkUtil.isNetworkAvailable(ForgotActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(ForgotActivity.this);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);/*SavedData.getFCM_ID()*/
-            ErrorMessage.E("LoginOnServer" + SavedData.getIMEI_Number());
             Call<ResponseBody> call = apiService.forgat_pass(emailIdEtv.getText().toString());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -76,9 +76,10 @@ public class ForgotActivity extends AppCompatActivity {
                             if (object.getString("status").equals("200")) {
                                 ErrorMessage.E("comes in if cond" + object.toString());
                                 ErrorMessage.T(ForgotActivity.this, object.getString("message"));
+                                ALert_PopUP();
                                /* JSONObject jsonObject1 = object.getJSONObject("result");
 
-                               UserProfileModel userProfileModel = new UserProfileModel();
+                                UserProfileModel userProfileModel = new UserProfileModel();
                                 userProfileModel.setDisplayName(jsonObject1.getString("fullname"));
                                 userProfileModel.setUser_id(jsonObject1.getString("token"));
                                 userProfileModel.setEmaiiId(jsonObject1.getString("email"));
@@ -118,4 +119,30 @@ public class ForgotActivity extends AppCompatActivity {
             ErrorMessage.T(ForgotActivity.this, "No Internet");
         }
     }
+
+    public void ALert_PopUP() {
+        final Dialog dialog = new Dialog(ForgotActivity.this);
+        dialog.setContentView(R.layout.alert_popup);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        final Button submit_btn = (Button) dialog.findViewById(R.id.submit_btn);
+        final Button done_btn = (Button) dialog.findViewById(R.id.done_btn);
+        final Button done_payment_btn = (Button) dialog.findViewById(R.id.done_payment_btn);
+        final TextView content_tv = (TextView) dialog.findViewById(R.id.content_tv);
+
+        content_tv.setText("Please check your email");
+
+        done_btn.setVisibility(View.GONE);
+        submit_btn.setVisibility(View.GONE);
+
+        done_payment_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.show();
+    }
+
+
 }

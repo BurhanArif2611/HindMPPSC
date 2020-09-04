@@ -93,6 +93,8 @@ public class  PaperListActivity extends BaseActivity {
                                 ErrorMessage.E("comes in if cond" + object.toString());
                                 Example example = gson.fromJson(object.toString(), Example.class);
                                 if (example.getResult().size() > 0) {
+                                    noDataFoundTv.setVisibility(View.GONE);
+                                    paperListRcv.setVisibility(View.VISIBLE);
                                     LinearLayoutManager gridLayoutManager = new LinearLayoutManager(PaperListActivity.this);
                                     gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL); // set Horizontal Orientation
                                     paperListRcv.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
@@ -112,7 +114,8 @@ public class  PaperListActivity extends BaseActivity {
                             } else {
                                 ErrorMessage.E("comes in else");
                                 ErrorMessage.T(PaperListActivity.this, object.getString("message"));
-
+                                noDataFoundTv.setVisibility(View.VISIBLE);
+                                paperListRcv.setVisibility(View.GONE);
                             }
                         } catch (Exception e) {
                             swiperefresh.setRefreshing(false);

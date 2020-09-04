@@ -125,7 +125,7 @@ public class FinalAnswerFragment extends Fragment {
                             optionFourthTv.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_circle));
                             optionFourthTv.setTextColor(getActivity().getResources().getColor(R.color.white));
 
-                            radioFirst.setTextColor(getActivity().getResources().getColor(R.color.white));
+                          //  radioFirst.setTextColor(getActivity().getResources().getColor(R.color.white));
                         }
                         if (myList.get(Index).getAnswer().equals(radioSecond.getText().toString())) {
                              //radioSecond.setBackground(getActivity().getResources().getDrawable(R.drawable.red_corners));
@@ -146,7 +146,7 @@ public class FinalAnswerFragment extends Fragment {
                             optionFourthTv.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_circle));
                             optionFourthTv.setTextColor(getActivity().getResources().getColor(R.color.white));
 
-                            radioSecond.setTextColor(getActivity().getResources().getColor(R.color.white));
+                            radioSecond.setTextColor(getActivity().getResources().getColor(R.color.hind_text));
                         }
                         if (myList.get(Index).getAnswer().equals(radioThird.getText().toString())) {
                            // radioThird.setBackground(getActivity().getResources().getDrawable(R.drawable.red_corners));
@@ -167,7 +167,7 @@ public class FinalAnswerFragment extends Fragment {
                             optionFourthTv.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_circle));
                             optionFourthTv.setTextColor(getActivity().getResources().getColor(R.color.white));
 
-                            radioThird.setTextColor(getActivity().getResources().getColor(R.color.white));
+                          radioThird.setTextColor(getActivity().getResources().getColor(R.color.hind_text));
                         }
                         if (myList.get(Index).getAnswer().equals(radioFourth.getText().toString())) {
                            // radioFourth.setBackground(getActivity().getResources().getDrawable(R.drawable.red_corners));
@@ -189,7 +189,7 @@ public class FinalAnswerFragment extends Fragment {
                             optionThirdTv.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_circle));
                             optionThirdTv.setTextColor(getActivity().getResources().getColor(R.color.white));
 
-                            radioFourth.setTextColor(getActivity().getResources().getColor(R.color.white));
+                            radioFourth.setTextColor(getActivity().getResources().getColor(R.color.hind_text));
                         }
 
                         if (result.getAnswer().equals(radioFirst.getText().toString())) {
@@ -210,7 +210,7 @@ public class FinalAnswerFragment extends Fragment {
                             optionFourthTv.setBackground(getActivity().getResources().getDrawable(R.drawable.ic_circle));
                             optionFourthTv.setTextColor(getActivity().getResources().getColor(R.color.white));
 
-                            radioFirst.setTextColor(getActivity().getResources().getColor(R.color.white));
+                            radioFirst.setTextColor(getActivity().getResources().getColor(R.color.hind_text));
                         }/* else {
                             radioFirst.setBackground(getActivity().getResources().getDrawable(R.drawable.red_corners));
                         }*/

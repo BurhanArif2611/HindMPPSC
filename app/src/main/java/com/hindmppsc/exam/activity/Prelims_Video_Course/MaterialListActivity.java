@@ -19,6 +19,7 @@ import com.hindmppsc.exam.activity.InterviewPreviousVideoActivity;
 import com.hindmppsc.exam.activity.Live_Classes.LiveClassActivity;
 import com.hindmppsc.exam.activity.Live_Classes.PaymentActivity;
 import com.hindmppsc.exam.activity.LoginActivity;
+import com.hindmppsc.exam.activity.Set_ListActivity;
 import com.hindmppsc.exam.activity.TermsConditionActivity;
 import com.hindmppsc.exam.adapter.Material_Type_Adapter;
 import com.hindmppsc.exam.adapter.Subject_Adapter;
@@ -52,6 +53,7 @@ public class MaterialListActivity extends BaseActivity {
     private String Material_type = "";
     private String Exam_type = "";
     private String Exam_type_id = "";
+    private String Suscribe_type = "";
 
     @Override
     protected int getContentResId() {
@@ -147,12 +149,20 @@ public class MaterialListActivity extends BaseActivity {
 
     public void getpreivious_paper(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
+        Suscribe_type = listCoupon.getSubscribe();
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
             bundle.putString("material", listCoupon.getMaterialType());
-            bundle.putString("Exam_type", Exam_type);
+            bundle.putString("Video Course", Exam_type);
+            ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
+        }else if (listCoupon.getPrice().equals("0") || listCoupon.getPrice().equals("")) {
+            Bundle bundle = new Bundle();
+            bundle.putString("id", String.valueOf(listCoupon.getId()));
+            bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
+            bundle.putString("material", listCoupon.getMaterialType());
+            bundle.putString("Video Course", Exam_type);
             ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
         } else {
             Intent i = new Intent(MaterialListActivity.this, TermsConditionActivity.class);
@@ -167,13 +177,14 @@ public class MaterialListActivity extends BaseActivity {
     public void getsyllabus(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
         Exam_type = listCoupon.getMaterialType();
+        Suscribe_type = listCoupon.getSubscribe();
 
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
             bundle.putString("material", listCoupon.getMaterialType());
-            bundle.putString("Exam_type", listCoupon.getMaterialType());
+            bundle.putString("Video Course", listCoupon.getMaterialType());
             ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
         } else {
             if (listCoupon.getPrice().equals("0") || listCoupon.getPrice().equals("")) {
@@ -181,7 +192,7 @@ public class MaterialListActivity extends BaseActivity {
                 bundle.putString("id", String.valueOf(listCoupon.getId()));
                 bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
                 bundle.putString("material", listCoupon.getMaterialType());
-                bundle.putString("Exam_type", listCoupon.getMaterialType());
+                bundle.putString("Video Course", listCoupon.getMaterialType());
                 ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
             } else {
                 Intent i = new Intent(MaterialListActivity.this, TermsConditionActivity.class);
@@ -196,12 +207,13 @@ public class MaterialListActivity extends BaseActivity {
 
     public void getInterviewEBook(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
+        Suscribe_type = listCoupon.getSubscribe();
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
             bundle.putString("material", listCoupon.getMaterialType());
-            bundle.putString("Exam_type", Exam_type);
+            bundle.putString("Video Course", Exam_type);
             ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
         } else {
             Intent i = new Intent(MaterialListActivity.this, TermsConditionActivity.class);
@@ -215,6 +227,7 @@ public class MaterialListActivity extends BaseActivity {
 
     public void getCurrent_Affairs_Complete_course(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
+        Suscribe_type = listCoupon.getSubscribe();
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
@@ -234,6 +247,7 @@ public class MaterialListActivity extends BaseActivity {
 
     public void getCurrent_Affairs_Month(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
+
         Bundle bundle = new Bundle();
         bundle.putString("id", String.valueOf(listCoupon.getId()));
         bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
@@ -241,17 +255,20 @@ public class MaterialListActivity extends BaseActivity {
         bundle.putString("Exam_type", Exam_type);
         ErrorMessage.I(MaterialListActivity.this, Current_Affairs_MonthActivity.class, bundle);
 
+
     }
 
     public void getMockTest(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
+        Suscribe_type = listCoupon.getSubscribe();
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
             bundle.putString("material", listCoupon.getMaterialType());
             bundle.putString("Exam_type", Exam_type);
-            ErrorMessage.I(MaterialListActivity.this, MockTestPrelimsActivity.class, bundle);
+            ErrorMessage.I(MaterialListActivity.this, Set_ListActivity.class, bundle);
+            //ErrorMessage.I(MaterialListActivity.this, MockTestPrelimsActivity.class, bundle);
         } else {
             Intent i = new Intent(MaterialListActivity.this, TermsConditionActivity.class);
             i.putExtra("id", String.valueOf(listCoupon.getId()));
@@ -265,7 +282,7 @@ public class MaterialListActivity extends BaseActivity {
     public void getInterviewPreviousVideo(Result listCoupon) {
 
         // GetInterviewPreviousVideoOnServer(String.valueOf(listCoupon.getExamType()), String.valueOf(listCoupon.getId()));
-
+        Suscribe_type = listCoupon.getSubscribe();
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
@@ -293,6 +310,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "preivious_paper");
@@ -309,6 +327,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "preivious_paper");
@@ -324,6 +343,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "Current_Affairs_Complete_course");
@@ -339,6 +359,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "Current_Affairs_Month");
@@ -353,6 +374,7 @@ public class MaterialListActivity extends BaseActivity {
                 bundle.putString("id", data.getStringExtra("id"));
                 bundle.putString("exam_type", data.getStringExtra("exam_type"));
                 bundle.putString("material", Material_type);
+                bundle.putString("Video Course", Exam_type);
                 ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -364,6 +386,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "MockTest");
@@ -379,7 +402,7 @@ public class MaterialListActivity extends BaseActivity {
                 bundle.putString("exam_type", data.getStringExtra("exam_type"));
                 bundle.putString("material", Material_type);
                 bundle.putString("Exam_type", Exam_type);
-                ErrorMessage.I(MaterialListActivity.this, MockTestPrelimsActivity.class, bundle);
+                ErrorMessage.I(MaterialListActivity.this, Set_ListActivity.class, bundle);
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -391,6 +414,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "preivious_paper");
@@ -418,6 +442,7 @@ public class MaterialListActivity extends BaseActivity {
                 i.putExtra("id", data.getStringExtra("id"));
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "preivious_paper");
@@ -432,7 +457,7 @@ public class MaterialListActivity extends BaseActivity {
                 bundle.putString("id", data.getStringExtra("id"));
                 bundle.putString("exam_type", data.getStringExtra("exam_type"));
                 bundle.putString("material", Material_type);
-                bundle.putString("Exam_type", Exam_type);
+                bundle.putString("Video Course", Exam_type);
                 ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
 
 
@@ -458,7 +483,7 @@ public class MaterialListActivity extends BaseActivity {
                 bundle.putString("id", data.getStringExtra("id"));
                 bundle.putString("exam_type", data.getStringExtra("exam_type"));
                 bundle.putString("material", Material_type);
-                bundle.putString("Exam_type", Exam_type);
+                bundle.putString("Video Course", Exam_type);
                 ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
 
 

@@ -58,6 +58,7 @@ public class TaskForMains_Activity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setToolbarWithBackButton("");
         ButterKnife.bind(this);
+        titleTextTv.setText("Task For Mains");
         GetTodayGSOnServer();
         swiperefresh.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

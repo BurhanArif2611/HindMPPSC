@@ -65,7 +65,7 @@ public class PaymentActivity extends BaseActivity {
     CardView codCardview;
     private String transactionId = "";
     private String Order_id = "", Customer_id = "";
-    private String exam_type_id = "", Material_type_id = "", Paper_id = "", Check = "";
+    private String exam_type_id = "", Material_type_id = "", Paper_id = "", Check = "", Suscribe_type = "";
 
     @Override
     protected int getContentResId() {
@@ -81,6 +81,12 @@ public class PaymentActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Check = bundle.getString("fromActivity");
+            try {
+                if (bundle.getString("Suscribe_type") != null) {
+                    Suscribe_type = bundle.getString("Suscribe_type");
+                }
+            } catch (Exception e) {
+            }
             if (bundle.getString("fromActivity").equals("Payment")) {
                 package_id = bundle.getString("id");
                 bundle.getString("exam_type");
@@ -99,7 +105,7 @@ public class PaymentActivity extends BaseActivity {
               /*  Material_type_id=bundle.getString("Material_type_id");
                 Paper_id=bundle.getString("Paper_id");*/
                 paid_amount = bundle.getString("price");
-                ErrorMessage.E("Payment"+paid_amount);
+                ErrorMessage.E("Payment" + paid_amount);
                 proceedPayBtn.setText("₹ " + paid_amount + " Proceed To Pay");
             } else if (bundle.getString("fromActivity").equals("MockTest")) {
                 package_id = bundle.getString("id");
@@ -107,24 +113,24 @@ public class PaymentActivity extends BaseActivity {
               /*  Material_type_id=bundle.getString("Material_type_id");
                 Paper_id=bundle.getString("Paper_id");*/
                 paid_amount = bundle.getString("price");
-                ErrorMessage.E("Payment"+paid_amount);
+                ErrorMessage.E("Payment" + paid_amount);
                 proceedPayBtn.setText("₹ " + paid_amount + " Proceed To Pay");
-            }else if (bundle.getString("fromActivity").equals("Current_Affairs_Complete_course")) {
+            } else if (bundle.getString("fromActivity").equals("Current_Affairs_Complete_course")) {
                 package_id = bundle.getString("id");
                 exam_type_id = bundle.getString("exam_type");
               /*  Material_type_id=bundle.getString("Material_type_id");
                 Paper_id=bundle.getString("Paper_id");*/
                 paid_amount = bundle.getString("price");
-                ErrorMessage.E("Payment"+paid_amount);
+                ErrorMessage.E("Payment" + paid_amount);
                 proceedPayBtn.setText("₹ " + paid_amount + " Proceed To Pay");
-            }else if (bundle.getString("fromActivity").equals("Current_Affairs_Month")) {
+            } else if (bundle.getString("fromActivity").equals("Current_Affairs_Month")) {
                 package_id = bundle.getString("id");
                 exam_type_id = bundle.getString("exam_type");
 
               /*  Material_type_id=bundle.getString("Material_type_id");
                 Paper_id=bundle.getString("Paper_id");*/
                 paid_amount = bundle.getString("price");
-                ErrorMessage.E("Payment"+paid_amount);
+                ErrorMessage.E("Payment" + paid_amount);
                 proceedPayBtn.setText("₹ " + paid_amount + " Proceed To Pay");
             }
         }
@@ -155,31 +161,35 @@ public class PaymentActivity extends BaseActivity {
                 Payment_mood = "Phone Pay";
                 break;
             case R.id.proceed_pay_btn:
-                if (!Payment_mood.equals("")) {
-                    if (Payment_mood.equals("Phone Pay")) {
-                        Payment(paid_amount, "8878215170@ybl", "Surendra Kumar Patel");
-                    } else if (Payment_mood.equals("G Pay")) {
-                        Payment(paid_amount, "mppschindclass@okaxis", "HIND MPPSC CLASS");
-                    } else if (Payment_mood.equals("Paytm")) {
-                        Payment(paid_amount, "8878215170@paytm", "HIND MPPSC CLASS");
-                    } else if (Payment_mood.equals("COD")) {
-                        transactionId = "123";
-                        if (Check.equals("Payment")) {
-                            PaymentOnServer();
-                        } else if (Check.equals("Prelims_Video_Course_PackegeActivity")) {
-                            Prelims_Video_Course_PaymentOnServer();
-                        }else if (Check.equals("preivious_paper")) {
-                            Previous_Paper_PaymentOnServer();
-                        }else if (Check.equals("MockTest")) {
-                            Previous_Paper_PaymentOnServer();
-                        }else if (Check.equals("Current_Affairs_Complete_course")) {
-                            Current_Affairs_Complete_coursePaymentOnServer();
-                        }else if (Check.equals("Current_Affairs_Month")) {
-                            Current_Affairs_Month();
-                        }
-                    }
+                if (Suscribe_type.contains("Pending")) {
+                    ALert_PopUP();
                 } else {
-                    ErrorMessage.T(PaymentActivity.this, "Please Select Payment Mode !");
+                    if (!Payment_mood.equals("")) {
+                        if (Payment_mood.equals("Phone Pay")) {
+                            Payment(paid_amount, "8878215170@ybl", "Surendra Kumar Patel");
+                        } else if (Payment_mood.equals("G Pay")) {
+                            Payment(paid_amount, "mppschindclass@okaxis", "HIND MPPSC CLASS");
+                        } else if (Payment_mood.equals("Paytm")) {
+                            Payment(paid_amount, "8878215170@paytm", "HIND MPPSC CLASS");
+                        } else if (Payment_mood.equals("COD")) {
+                            transactionId = "123";
+                            if (Check.equals("Payment")) {
+                                PaymentOnServer();
+                            } else if (Check.equals("Prelims_Video_Course_PackegeActivity")) {
+                                Prelims_Video_Course_PaymentOnServer();
+                            } else if (Check.equals("preivious_paper")) {
+                                Previous_Paper_PaymentOnServer();
+                            } else if (Check.equals("MockTest")) {
+                                Previous_Paper_PaymentOnServer();
+                            } else if (Check.equals("Current_Affairs_Complete_course")) {
+                                Current_Affairs_Complete_coursePaymentOnServer();
+                            } else if (Check.equals("Current_Affairs_Month")) {
+                                Current_Affairs_Month();
+                            }
+                        }
+                    } else {
+                        ErrorMessage.T(PaymentActivity.this, "Please Select Payment Mode !");
+                    }
                 }
                 break;
             case R.id.paytm_img:
@@ -339,11 +349,12 @@ public class PaymentActivity extends BaseActivity {
             ErrorMessage.T(PaymentActivity.this, "No Internet");
         }
     }
+
     private void Previous_Paper_PaymentOnServer() {
         if (NetworkUtil.isNetworkAvailable(PaymentActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(PaymentActivity.this);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
-            ErrorMessage.E("Previous_Paper_PaymentOnServer>" + package_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id()+">>"+paid_amount);
+            ErrorMessage.E("Previous_Paper_PaymentOnServer>" + package_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id() + ">>" + paid_amount);
             Call<ResponseBody> call = apiService.order_other_material(package_id, UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id(), transactionId, paid_amount, Payment_mood, SavedData.getIMEI_Number());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -364,8 +375,8 @@ public class PaymentActivity extends BaseActivity {
                                     Intent returnIntent = new Intent();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("fromActivity", "Payment");
-                                    bundle.putString("id",package_id);
-                                    bundle.putString("exam_type",exam_type_id);
+                                    bundle.putString("id", package_id);
+                                    bundle.putString("exam_type", exam_type_id);
                                     returnIntent.putExtras(bundle);
                                     setResult(Activity.RESULT_OK, returnIntent);
                                     finish();
@@ -400,11 +411,12 @@ public class PaymentActivity extends BaseActivity {
             ErrorMessage.T(PaymentActivity.this, "No Internet");
         }
     }
+
     private void Current_Affairs_Complete_coursePaymentOnServer() {
         if (NetworkUtil.isNetworkAvailable(PaymentActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(PaymentActivity.this);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
-            ErrorMessage.E("Previous_Paper_PaymentOnServer>" + package_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id()+">>"+paid_amount);
+            ErrorMessage.E("Previous_Paper_PaymentOnServer>" + package_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id() + ">>" + paid_amount);
             Call<ResponseBody> call = apiService.order_other_material(package_id, UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id(), transactionId, paid_amount, Payment_mood, SavedData.getIMEI_Number());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -425,8 +437,8 @@ public class PaymentActivity extends BaseActivity {
                                     Intent returnIntent = new Intent();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("fromActivity", "Payment");
-                                    bundle.putString("id",package_id);
-                                    bundle.putString("exam_type",exam_type_id);
+                                    bundle.putString("id", package_id);
+                                    bundle.putString("exam_type", exam_type_id);
                                     returnIntent.putExtras(bundle);
                                     setResult(Activity.RESULT_OK, returnIntent);
                                     finish();
@@ -461,11 +473,12 @@ public class PaymentActivity extends BaseActivity {
             ErrorMessage.T(PaymentActivity.this, "No Internet");
         }
     }
+
     private void Current_Affairs_Month() {
         if (NetworkUtil.isNetworkAvailable(PaymentActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(PaymentActivity.this);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
-            ErrorMessage.E("Current_Affairs_Month>" + package_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id()+">>"+paid_amount);
+            ErrorMessage.E("Current_Affairs_Month>" + package_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id() + ">>" + paid_amount);
             Call<ResponseBody> call = apiService.order_current_affair_month(package_id, UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id(), transactionId, paid_amount, Payment_mood, SavedData.getIMEI_Number());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -486,8 +499,8 @@ public class PaymentActivity extends BaseActivity {
                                     Intent returnIntent = new Intent();
                                     Bundle bundle = new Bundle();
                                     bundle.putString("fromActivity", "Payment");
-                                    bundle.putString("id",package_id);
-                                    bundle.putString("exam_type",exam_type_id);
+                                    bundle.putString("id", package_id);
+                                    bundle.putString("exam_type", exam_type_id);
                                     returnIntent.putExtras(bundle);
                                     setResult(Activity.RESULT_OK, returnIntent);
                                     finish();
@@ -544,11 +557,11 @@ public class PaymentActivity extends BaseActivity {
                     PaymentOnServer();
                 } else if (Check.equals("Prelims_Video_Course_PackegeActivity")) {
                     Prelims_Video_Course_PaymentOnServer();
-                }else if (Check.equals("preivious_paper")) {
+                } else if (Check.equals("preivious_paper")) {
                     Previous_Paper_PaymentOnServer();
-                }else if (Check.equals("MockTest")) {
+                } else if (Check.equals("MockTest")) {
                     Previous_Paper_PaymentOnServer();
-                }else if (Check.equals("Current_Affairs_Complete_course")) {
+                } else if (Check.equals("Current_Affairs_Complete_course")) {
                     Current_Affairs_Complete_coursePaymentOnServer();
                 }
             }

@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.Prelims_Video_Course.ShowResultActivity"></activity>
+        <activity android:name=".activity.SetPaperListActivity"></activity>
+        <activity android:name=".activity.Set_ListActivity" />
+        <activity android:name=".activity.Prelims_Video_Course.ShowResultActivity" />
         <activity android:name=".activity.Prelims_Video_Course.MockTestResultActivity" />
         <activity android:name=".activity.TaskForYouPrelimsActivity" />
         <activity android:name=".activity.Live_Classes.TermsConditionActivity" />
@@ -78,13 +80,13 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 

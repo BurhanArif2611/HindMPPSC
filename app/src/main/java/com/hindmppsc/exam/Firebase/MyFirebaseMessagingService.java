@@ -26,8 +26,6 @@ import com.hindmppsc.exam.utility.SavedData;
 import org.json.JSONObject;
 
 
-
-
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
@@ -41,13 +39,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         SavedData.saveFCM_ID(s);
         Log.e("tokan", "Refreshed token:" + s);
         if (UserProfileHelper.getInstance().getUserProfileModel().size() > 0) {
-             //UpdateFCMOnServer(s);
+            //UpdateFCMOnServer(s);
         }
     }
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        Log.e(TAG, "From data: " + remoteMessage.getData());
+        /*Log.e(TAG, "From data: " + remoteMessage.getData().get("title"));
+        Log.e(TAG, "From data>: " + remoteMessage.getData().get("body"));
+        Log.e(TAG, "From data 1: " + remoteMessage.getNotification().toString());
+        Log.e(TAG, "From data 2: " + remoteMessage.getNotification().getBody().toString());
+        Log.e(TAG, "From data 3: " + remoteMessage.getNotification().getTitle().toString());*/
+
         try {
             Log.e(TAG, "From data: " + remoteMessage.getData().get("message").toString());
             String Response = remoteMessage.getData().get("message").toString();
@@ -61,54 +64,50 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         } catch (Exception e) {
             e.printStackTrace();
             ErrorMessage.E("MyFirebaseMessagingService" + e.toString());
-            try{
-            String Response = remoteMessage.getData().get("body").toString();
-            if (Response.contains("You Have One New Comment")){
-                Admin_Comment(Response);
-            }}catch (Exception e1){}
+            try {
+                String Response = remoteMessage.getData().get("body").toString();
+                if (Response.contains("You Have One New Comment")) {
+                    Admin_Comment(Response);
+                }
+            } catch (Exception e1) {}
         }
 
 
     }
 
-     private void Admin_Comment(String title) {
+    private void Admin_Comment(String title) {
 
-         if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-             // app is in foreground, broadcast the push message
-             Intent pushNotification = new Intent(Config.Admin_Comment);
-             LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
-             NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
-             notificationUtils.playNotificationSound();
+        if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+            // app is in foreground, broadcast the push message
+            Intent pushNotification = new Intent(Config.Admin_Comment);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
+            NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
+            notificationUtils.playNotificationSound();
 
-         }
-             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                 final String ANDROID_CHANNEL_ID = "com.hindmppsc.exam.ANDROID";
-                 Intent intent = new Intent(getApplicationContext(), ReadCommentActivity.class);
-                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                 NetworkUtileforOreao mNotificationUtils = new NetworkUtileforOreao(getApplicationContext());
-                 Notification.Builder nb = new Notification.Builder(getApplicationContext(), ANDROID_CHANNEL_ID).
-                         setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
-                 mNotificationUtils.getManager().notify(0, nb.build());
-             } else {
-                 Intent intent = new Intent(getApplicationContext(), ReadCommentActivity.class);
-                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                 PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-                 Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                 NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this).
-                         setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
-                 NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                 notificationManager.notify(0, notificationBuilder.build());
-             }
-
-
-
-     }
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            final String ANDROID_CHANNEL_ID = "com.hindmppsc.exam.ANDROID";
+            Intent intent = new Intent(getApplicationContext(), ReadCommentActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NetworkUtileforOreao mNotificationUtils = new NetworkUtileforOreao(getApplicationContext());
+            Notification.Builder nb = new Notification.Builder(getApplicationContext(), ANDROID_CHANNEL_ID).
+                    setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
+            mNotificationUtils.getManager().notify(0, nb.build());
+        } else {
+            Intent intent = new Intent(getApplicationContext(), ReadCommentActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this).
+                    setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, notificationBuilder.build());
+        }
 
 
-
-
+    }
 
 
     private void handleNotification(String title) {
@@ -120,43 +119,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationUtils.playNotificationSound();
 
         }
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                final String ANDROID_CHANNEL_ID = "com.hindmppsc.exam.ANDROID";
-                Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                NetworkUtileforOreao mNotificationUtils = new NetworkUtileforOreao(getApplicationContext());
-                Notification.Builder nb = new Notification.Builder(getApplicationContext(), ANDROID_CHANNEL_ID).
-                        setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
-                mNotificationUtils.getManager().notify(0, nb.build());
-            } else {
-                Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
-                Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this).
-                        setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
-                NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(0, notificationBuilder.build());
-            }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            final String ANDROID_CHANNEL_ID = "com.hindmppsc.exam.ANDROID";
+            Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NetworkUtileforOreao mNotificationUtils = new NetworkUtileforOreao(getApplicationContext());
+            Notification.Builder nb = new Notification.Builder(getApplicationContext(), ANDROID_CHANNEL_ID).
+                    setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
+            mNotificationUtils.getManager().notify(0, nb.build());
+        } else {
+            Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this).
+                    setSmallIcon(R.drawable.ic_launcher).setContentTitle("HIND MPPSC").setContentText(title).setAutoCancel(true).setSound(defaultSoundUri).setContentIntent(pendingIntent);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(0, notificationBuilder.build());
+        }
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-   
-
 
 
 }

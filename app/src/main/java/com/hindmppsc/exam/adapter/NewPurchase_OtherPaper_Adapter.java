@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hindmppsc.exam.R;
 import com.hindmppsc.exam.activity.Prelims_Video_Course.PaperListActivity;
+import com.hindmppsc.exam.activity.Prelims_Video_Course.PaperUnitActivity;
+import com.hindmppsc.exam.activity.Prelims_Video_Course.Prelims_Video_Course_PackegeActivity;
 import com.hindmppsc.exam.models.NewPurchase_Models.OrderPaper;
 import com.hindmppsc.exam.models.NewPurchase_Models.Result;
 import com.hindmppsc.exam.utility.ErrorMessage;
@@ -65,11 +67,18 @@ public class NewPurchase_OtherPaper_Adapter extends RecyclerView.Adapter<NewPurc
 holder.itemView.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-       /* Bundle bundle = new Bundle();
-        bundle.putString("id", String.valueOf(listCoupon.get()));
-        bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
-        bundle.putString("material", listCoupon.getMaterialType());
-        ErrorMessage.I(activity, PaperListActivity.class, bundle);*/
+       /* Bundle bundle=new Bundle();
+        bundle.putString("paper_id", String.valueOf(listCoupon.getPaperId()));
+        bundle.putString("exam_type", String.valueOf(listCoupon.getExam()));
+        bundle.putString("material_type_id", String.valueOf(listCoupon.getMaterial_type_id()));
+        bundle.putString("material",listCoupon.getPaper());
+        ErrorMessage.I(activity, Prelims_Video_Course_PackegeActivity.class,bundle);*/
+
+        Bundle bundle = new Bundle();
+        bundle.putString("exam_type", String.valueOf(listCoupon.getExamId()));
+        bundle.putString("material_type_id", String.valueOf(listCoupon.getMaterial_type_id()));
+        bundle.putString("paper_id", String.valueOf(listCoupon.getPaperId()));
+        ErrorMessage.I(activity, PaperUnitActivity.class, bundle);
     }
 });
 

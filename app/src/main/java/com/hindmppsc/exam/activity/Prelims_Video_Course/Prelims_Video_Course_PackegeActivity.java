@@ -55,7 +55,7 @@ public class Prelims_Video_Course_PackegeActivity extends BaseActivity {
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
     private String paper_id="",exam_id="",material_type_id="",material="";
-    private String Material_type_id="",Paper_id="";
+    private String Material_type_id="",Paper_id="",Suscribe_type="";
 
     @Override
     protected int getContentResId() {
@@ -154,8 +154,9 @@ public class Prelims_Video_Course_PackegeActivity extends BaseActivity {
         }
     }
 
-    public void GO_TO_NextPage(String packege_id, String exam_type, String Price, String material_type_id, String paper_id) {
+    public void GO_TO_NextPage(String packege_id, String exam_type, String Price, String material_type_id, String paper_id,String subscribe) {
        // ExamType = Exam_type;
+        Suscribe_type=subscribe;
         Material_type_id=material_type_id;
         Paper_id=paper_id;
         Intent i = new Intent(Prelims_Video_Course_PackegeActivity.this, TermsConditionActivity.class);
@@ -178,6 +179,7 @@ public class Prelims_Video_Course_PackegeActivity extends BaseActivity {
                 i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);
                 i.putExtra("fromActivity", "Prelims_Video_Course_PackegeActivity");
+                i.putExtra("Suscribe_type", Suscribe_type);
                 startActivityForResult(i, 2);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

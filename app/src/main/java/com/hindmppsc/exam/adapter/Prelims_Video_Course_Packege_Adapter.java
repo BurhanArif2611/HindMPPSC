@@ -74,7 +74,7 @@ public class Prelims_Video_Course_Packege_Adapter extends RecyclerView.Adapter<P
                     bundle.putString("paper_id", String.valueOf(listCoupon.getPaper_id()));
                     ErrorMessage.I(activity, PaperUnitActivity.class, bundle);
                 } else {
-                    ((Prelims_Video_Course_PackegeActivity) activity).GO_TO_NextPage(String.valueOf(listCoupon.getId()), String.valueOf(listCoupon.getExamType()), String.valueOf(listCoupon.getPrice()), String.valueOf(listCoupon.getMaterial_type_id()), String.valueOf(listCoupon.getPaper_id()));
+                    ((Prelims_Video_Course_PackegeActivity) activity).GO_TO_NextPage(String.valueOf(listCoupon.getId()), String.valueOf(listCoupon.getExamType()), String.valueOf(listCoupon.getPrice()), String.valueOf(listCoupon.getMaterial_type_id()), String.valueOf(listCoupon.getPaper_id()),listCoupon.getSubscribe());
                 }
 
             }

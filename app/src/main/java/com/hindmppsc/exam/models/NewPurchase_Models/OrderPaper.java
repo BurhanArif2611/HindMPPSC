@@ -15,6 +15,9 @@ public class OrderPaper implements Serializable {
     @SerializedName("paper_id")
     @Expose
     private Integer paperId;
+    @SerializedName("material_type_id")
+    @Expose
+    private Integer material_type_id;
     @SerializedName("paper")
     @Expose
     private String paper;
@@ -137,5 +140,13 @@ public class OrderPaper implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Integer getMaterial_type_id() {
+        return material_type_id;
+    }
+
+    public void setMaterial_type_id(Integer material_type_id) {
+        this.material_type_id = material_type_id;
     }
 }

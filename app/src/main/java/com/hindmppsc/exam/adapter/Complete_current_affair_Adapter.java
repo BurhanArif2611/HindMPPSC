@@ -98,6 +98,16 @@ public class Complete_current_affair_Adapter extends RecyclerView.Adapter<Comple
                 }
             }
         });
+
+         if (listCoupon.getEbook_video().equals("Video")){
+           /*  holder.subject_name_second_tv.setCompoundDrawablesWithIntrinsicBounds(null, null, null, activity.getResources().getDrawable(R.drawable.ic_ic_video_play));
+             holder.subject_name_first_tv.setCompoundDrawablesWithIntrinsicBounds(null, null, null, activity.getResources().getDrawable(R.drawable.ic_ic_video_play));
+*/             holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_live_class));
+            holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_live_class));
+        }else if (listCoupon.getEbook_video().equals("Ebook")){
+            holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_ebook));
+            holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_ebook));
+        }
         /*holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -27,7 +27,7 @@
                     app:cardCornerRadius="@dimen/_15sdp"
                     android:elevation="@dimen/_8sdp"
                     android:layout_margin="@dimen/_8sdp"
-                    >
+                    android:visibility="gone">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -54,6 +54,7 @@
                             android:src="@drawable/ic_can_join_anytime" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -62,6 +62,13 @@ public class Current_Affairs_Month_listActivity extends BaseActivity {
             Exam_type_id = bundle.getString("exam_type");
             titleTextTv.setText(bundle.getString("Exam_type"));
         }
+        swiperefresh.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                GetCurrent_Affairs_MonthListOnServer();
+            }
+        });
         GetCurrent_Affairs_MonthListOnServer();
     }
     private void GetCurrent_Affairs_MonthListOnServer() {

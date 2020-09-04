@@ -85,16 +85,24 @@ public class Material_Type_Adapter extends RecyclerView.Adapter<Material_Type_Ad
                         ErrorMessage.I(activity, PaperListActivity.class, bundle);*//*
                     }
                 } else {*/
-                    if (listCoupon.getMaterialType().toLowerCase().equals("preivious paper")) {
-                        ((MaterialListActivity) activity).getpreivious_paper(listCoupon);
-                    }else   if (listCoupon.getMaterialType().toLowerCase().equals("syllabus")) {
-                        ((MaterialListActivity) activity).getsyllabus(listCoupon);
-                    } else if (listCoupon.getMaterialType().toLowerCase().equals("mock test")) {
-                        ((MaterialListActivity) activity).getMockTest(listCoupon);
-                    }else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs complete course")) {
-                        ((MaterialListActivity) activity).getCurrent_Affairs_Complete_course(listCoupon);
-                    }else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs month ") || listCoupon.getMaterialType().toLowerCase().equals("current affairs month")) {
-                        ((MaterialListActivity) activity).getCurrent_Affairs_Month(listCoupon);
+                if (listCoupon.getMaterialType().toLowerCase().equals("preivious paper") || listCoupon.getMaterialType().toLowerCase().contains("preivious paper")) {
+                    ((MaterialListActivity) activity).getpreivious_paper(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("syllabus")) {
+                    ((MaterialListActivity) activity).getsyllabus(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("mock test")) {
+                    ((MaterialListActivity) activity).getMockTest(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs complete course")) {
+                    ((MaterialListActivity) activity).getCurrent_Affairs_Complete_course(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs monthly ") || listCoupon.getMaterialType().toLowerCase().equals("current affairs monthly")) {
+                    ((MaterialListActivity) activity).getCurrent_Affairs_Month(listCoupon);
+                } else {
+                    if (Exam_type.equals("Interview")) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", String.valueOf(listCoupon.getId()));
+                        bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
+                        bundle.putString("material", listCoupon.getMaterialType());
+                        bundle.putString("Video Course", Exam_type);
+                        ErrorMessage.I(activity, PrelimsPreviousPaperActivity.class, bundle);
                     } else {
                         Bundle bundle = new Bundle();
                         bundle.putString("id", String.valueOf(listCoupon.getId()));
@@ -102,7 +110,8 @@ public class Material_Type_Adapter extends RecyclerView.Adapter<Material_Type_Ad
                         bundle.putString("material", listCoupon.getMaterialType());
                         ErrorMessage.I(activity, PaperListActivity.class, bundle);
                     }
-              //  }
+                }
+                //  }
             }
         });
         holder.join_second_btn.setOnClickListener(new View.OnClickListener() {
@@ -126,41 +135,49 @@ public class Material_Type_Adapter extends RecyclerView.Adapter<Material_Type_Ad
                         ErrorMessage.I(activity, PaperListActivity.class, bundle);*//*
                     }
                 } else {*/
-                    if (listCoupon.getMaterialType().toLowerCase().equals("preivious paper")) {
-                        ((MaterialListActivity) activity).getpreivious_paper(listCoupon);
-                    } else   if (listCoupon.getMaterialType().toLowerCase().equals("syllabus")) {
-                        ((MaterialListActivity) activity).getsyllabus(listCoupon);
-                    }
-                    else if (listCoupon.getMaterialType().toLowerCase().equals("mock test")) {
-                        ((MaterialListActivity) activity).getMockTest(listCoupon);
-                    }else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs complete course")) {
-                        ((MaterialListActivity) activity).getCurrent_Affairs_Complete_course(listCoupon);
-                    }else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs month ") || listCoupon.getMaterialType().toLowerCase().equals("current affairs month")) {
-                        ((MaterialListActivity) activity).getCurrent_Affairs_Month(listCoupon);
-                    }  else {
+                if (listCoupon.getMaterialType().toLowerCase().equals("preivious paper")) {
+                    ((MaterialListActivity) activity).getpreivious_paper(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("syllabus")) {
+                    ((MaterialListActivity) activity).getsyllabus(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("mock test")) {
+                    ((MaterialListActivity) activity).getMockTest(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs complete course")) {
+                    ((MaterialListActivity) activity).getCurrent_Affairs_Complete_course(listCoupon);
+                } else if (listCoupon.getMaterialType().toLowerCase().equals("current affairs monthly ") || listCoupon.getMaterialType().toLowerCase().equals("current affairs monthly")) {
+                    ((MaterialListActivity) activity).getCurrent_Affairs_Month(listCoupon);
+                } else {
+                    if (Exam_type.equals("Interview")) {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", String.valueOf(listCoupon.getId()));
+                        bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
+                        bundle.putString("material", listCoupon.getMaterialType());
+                        bundle.putString("Video Course", Exam_type);
+                        ErrorMessage.I(activity, PrelimsPreviousPaperActivity.class, bundle);
+                    } else {
                         Bundle bundle = new Bundle();
                         bundle.putString("id", String.valueOf(listCoupon.getId()));
                         bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
                         bundle.putString("material", listCoupon.getMaterialType());
                         ErrorMessage.I(activity, PaperListActivity.class, bundle);
                     }
-               // }
+                }
+                // }
 
             }
         });
-        if (listCoupon.getMaterialType().toLowerCase().contains("syllabus")){
+        if (listCoupon.getMaterialType().toLowerCase().contains("syllabus")) {
             holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_health_education));
             holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_health_education));
-        }else if (listCoupon.getMaterialType().toLowerCase().contains("video course")){
+        } else if (listCoupon.getMaterialType().toLowerCase().contains("video course")) {
             holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_live_class));
             holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_live_class));
-        }else if (listCoupon.getMaterialType().toLowerCase().contains("ebook")){
+        } else if (listCoupon.getMaterialType().toLowerCase().contains("ebook")) {
             holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_ebook));
             holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_ebook));
-        }else if (listCoupon.getMaterialType().toLowerCase().contains("preivious paper")){
+        } else if (listCoupon.getMaterialType().toLowerCase().contains("preivious paper")) {
             holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_history));
             holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_history));
-        }else if (listCoupon.getMaterialType().toLowerCase().contains("mock test")){
+        } else if (listCoupon.getMaterialType().toLowerCase().contains("mock test")) {
             holder.right_subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_presentation));
             holder.subject_img.setImageDrawable(activity.getResources().getDrawable(R.drawable.ic_presentation));
         }

@@ -71,9 +71,16 @@ public class LiveClass_Adapter extends RecyclerView.Adapter<LiveClass_Adapter.My
             holder.first_layout.setVisibility(View.GONE);
             holder.second_layout.setVisibility(View.VISIBLE);
         }
-        holder.subject_name_first_tv.setText(listCoupon.getTitle());
-        holder.subject_name_second_tv.setText(listCoupon.getTitle());
-
+        try {
+            if (listCoupon.getSrNo() != null) {
+                holder.subject_name_first_tv.setText(listCoupon.getSrNo() + "\n" + listCoupon.getTitle());
+                holder.subject_name_second_tv.setText(listCoupon.getSrNo() + "\n" + listCoupon.getTitle());
+            } else {
+                holder.subject_name_first_tv.setText(listCoupon.getTitle());
+                holder.subject_name_second_tv.setText(listCoupon.getTitle());
+            }
+        } catch (Exception e) {
+        }
         holder.join_btn.setVisibility(View.GONE);
         holder.join_second_btn.setVisibility(View.GONE);
         holder.time_tv.setVisibility(View.VISIBLE);

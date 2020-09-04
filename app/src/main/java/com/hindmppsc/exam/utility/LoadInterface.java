@@ -121,6 +121,23 @@ public interface LoadInterface {
     @FormUrlEncoded
     Call<ResponseBody> exam_material_type(@Field(value = "exam_type") String exam_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
 
+
+    @POST("cresh_prelims_and_prelims_set")
+    @FormUrlEncoded
+    Call<ResponseBody> cresh_prelims_and_prelims_set(@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
+
+    @POST("cresh_mains_and_mains_and_interview_set")
+    @FormUrlEncoded
+    Call<ResponseBody> cresh_mains_and_mains_and_interview_set(@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
+
+    @POST("cresh_prelims_and_prelims_set_paper")
+    @FormUrlEncoded
+    Call<ResponseBody> cresh_prelims_and_prelims_set_paper(@Field(value = "set") String set,@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
+
+    @POST("cresh_mains_and_mains_and_interview_set_paper")
+    @FormUrlEncoded
+    Call<ResponseBody> cresh_mains_and_mains_and_interview_set_paper(@Field(value = "set") String set,@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
+
     @POST("interview_exam_video")
     @FormUrlEncoded
     Call<ResponseBody> interview_exam_video(@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
@@ -147,11 +164,11 @@ public interface LoadInterface {
 
     @POST("mock_test_prelims")
     @FormUrlEncoded
-    Call<ResponseBody> mock_test_prelims(@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
+    Call<ResponseBody> mock_test_prelims(@Field(value = "set") String set,@Field(value = "paper") String paper,@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
 
     @POST("exam_mock_test")
     @FormUrlEncoded
-    Call<ResponseBody> exam_mock_test(@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
+    Call<ResponseBody> exam_mock_test(@Field(value = "set") String set,@Field(value = "paper") String paper,@Field(value = "exam_type") String exam_type,@Field(value = "material_type") String material_type,@Field(value = "imei") String imei, @Field(value = "token") String token);
 
     @POST("interview_ebook_course")
     @FormUrlEncoded
@@ -172,7 +189,7 @@ public interface LoadInterface {
 
     @POST("tsak_prelims")
     @FormUrlEncoded
-    Call<ResponseBody> tsak_prelims(@Field(value = "imei") String imei, @Field(value = "token") String token, @Field(value = "date") String date);
+    Call<ResponseBody> tsak_prelims(@Field(value = "set") String set,@Field(value = "paper") String paper,@Field(value = "imei") String imei, @Field(value = "token") String token, @Field(value = "date") String date);
 
     @POST("today_gs")
     @FormUrlEncoded

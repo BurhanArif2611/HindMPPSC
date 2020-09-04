@@ -200,16 +200,17 @@
                 android:layout_margin="@dimen/_3sdp"
                 android:id="@+id/preview_btn"
                 />
+
             <Button
+                android:id="@+id/next_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Next"
-                android:background="@drawable/corner_white"
-                android:textColor="@color/primary_text"
-                android:drawableRight="@drawable/ic_right_arraw"
-                android:layout_weight="1"
                 android:layout_margin="@dimen/_3sdp"
-                android:id="@+id/next_btn"/>
+                android:layout_weight="1"
+                android:background="@drawable/corner_white"
+                android:drawableRight="@drawable/ic_right_arraw"
+                android:text="Next"
+                android:textColor="@color/primary_text" />
         </LinearLayout>
     </LinearLayout>
 

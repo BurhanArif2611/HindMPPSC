@@ -51,6 +51,7 @@ public class Current_Affairs_MonthActivity extends BaseActivity {
     private String Material_type_id = "", Exam_type_id = "";
     private String Material_type="";
     private String Exam_type="";
+    private String Suscribe_type="";
 
     @Override
     protected int getContentResId() {
@@ -68,7 +69,15 @@ public class Current_Affairs_MonthActivity extends BaseActivity {
             Material_type_id = bundle.getString("id");
             Exam_type_id = bundle.getString("exam_type");
             titleTextTv.setText(bundle.getString("material"));
+            ErrorMessage.E("Current_Affairs_MonthActivity"+Material_type_id+">>"+Exam_type_id);
         }
+        swiperefresh.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                GetCurrent_Affairs_MonthOnServer();
+            }
+        });
         GetCurrent_Affairs_MonthOnServer();
     }
     private void GetCurrent_Affairs_MonthOnServer() {
@@ -150,6 +159,7 @@ public class Current_Affairs_MonthActivity extends BaseActivity {
     public void go_subscribe(Result listCoupon) {
         Material_type = String.valueOf(listCoupon.getMaterial_type_id());
         Exam_type = String.valueOf(listCoupon.getMonth());
+        Suscribe_type = listCoupon.getSubscribe();
         if (listCoupon.getSubscribe().equals("subscribe")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
@@ -177,6 +187,7 @@ public class Current_Affairs_MonthActivity extends BaseActivity {
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("Material_type", Material_type);
                 i.putExtra("price", data.getStringExtra("price"));
+                i.putExtra("Suscribe_type", Suscribe_type);
              /*   i.putExtra("Material_type_id", Material_type_id);
                 i.putExtra("Paper_id", Paper_id);*/
                 i.putExtra("fromActivity", "Current_Affairs_Month");

@@ -17,7 +17,7 @@ public class AppConfig {
         if (retrofit==null) {
 
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                    .connectTimeout(100, TimeUnit.SECONDS)
+                    .connectTimeout(7000, TimeUnit.SECONDS)
                     .readTimeout(100, TimeUnit.SECONDS)
                     .writeTimeout(100, TimeUnit.SECONDS)
                     .build();

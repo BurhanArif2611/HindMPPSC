@@ -49,6 +49,7 @@ public class TodayGSActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setToolbarWithBackButton("");
         ButterKnife.bind(this);
+        titleTextTv.setText("Today GS");
         GetTodayGSOnServer();
         swiperefresh.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {

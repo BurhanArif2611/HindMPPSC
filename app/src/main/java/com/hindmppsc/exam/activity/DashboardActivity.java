@@ -316,7 +316,7 @@ public class DashboardActivity extends AppCompatActivity {
                                 ArrayList<Result> resultArrayList=new ArrayList<>();
                                  if (example.getResult().size() > 0) {
                                   for (int i=0;i<example.getResult().size();i++){
-                                      if (example.getResult().get(i).getExam().equals("Live Class")){
+                                      if (example.getResult().get(i).getExam().equals("Live Class") ){
                                           Result result=new Result();
                                           result.setId(example.getResult().get(i).getId());
                                           result.setExam(example.getResult().get(i).getExam());
@@ -324,7 +324,32 @@ public class DashboardActivity extends AppCompatActivity {
                                           resultArrayList.add(result);
                                       }
                                   }for (int i=0;i<example.getResult().size();i++){
-                                      if (!example.getResult().get(i).getExam().equals("Live Class")){
+                                      if (example.getResult().get(i).getExam().equals("Today GS") ){
+                                          Result result=new Result();
+                                          result.setId(example.getResult().get(i).getId());
+                                          result.setExam(example.getResult().get(i).getExam());
+                                          result.setImage(example.getResult().get(i).getImage());
+                                          resultArrayList.add(result);
+                                      }
+                                  }for (int i=0;i<example.getResult().size();i++){
+                                      if (example.getResult().get(i).getExam().equals("Task For You") ){
+                                          Result result=new Result();
+                                          result.setId(example.getResult().get(i).getId());
+                                          result.setExam(example.getResult().get(i).getExam());
+                                          result.setImage(example.getResult().get(i).getImage());
+                                          resultArrayList.add(result);
+                                      }
+                                  }for (int i=0;i<example.getResult().size();i++){
+                                      if (example.getResult().get(i).getExam().equals("Update Your Self") ){
+                                          Result result=new Result();
+                                          result.setId(example.getResult().get(i).getId());
+                                          result.setExam(example.getResult().get(i).getExam());
+                                          result.setImage(example.getResult().get(i).getImage());
+                                          resultArrayList.add(result);
+                                      }
+                                  }
+                                  for (int i=0;i<example.getResult().size();i++){
+                                      if (!example.getResult().get(i).getExam().equals("Live Class") && !example.getResult().get(i).getExam().equals("Today GS") && !example.getResult().get(i).getExam().equals("Task For You") &&!example.getResult().get(i).getExam().equals("Update Your Self")){
                                           Result result=new Result();
                                           result.setId(example.getResult().get(i).getId());
                                           result.setExam(example.getResult().get(i).getExam());
