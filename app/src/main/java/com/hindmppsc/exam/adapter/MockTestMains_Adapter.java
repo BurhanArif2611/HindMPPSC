@@ -62,7 +62,6 @@ public class MockTestMains_Adapter extends RecyclerView.Adapter<MockTestMains_Ad
                 bundle.putString("image", listCoupon.getUrl());
                 bundle.putString("title", String.valueOf(listCoupon.getSrNo()));
                 ErrorMessage.I(activity, PDFViewerActivity.class, bundle);
-
             }
         });
         holder.join_second_btn.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +71,6 @@ public class MockTestMains_Adapter extends RecyclerView.Adapter<MockTestMains_Ad
                 bundle.putString("image", listCoupon.getUrl());
                 bundle.putString("title", String.valueOf(listCoupon.getSrNo()));
                 ErrorMessage.I(activity, PDFViewerActivity.class, bundle);
-
             }
         });
 

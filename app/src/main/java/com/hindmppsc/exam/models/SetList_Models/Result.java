@@ -15,13 +15,16 @@ public class Result {
     private Integer examType;
     @SerializedName("paper")
     @Expose
-    private Integer paper;
+    private String paper;
+    @SerializedName("url")
+    @Expose
+    private String url;
 
-    public Integer getPaper() {
+    public String getPaper() {
         return paper;
     }
 
-    public void setPaper(Integer paper) {
+    public void setPaper(String paper) {
         this.paper = paper;
     }
 
@@ -47,5 +50,13 @@ public class Result {
 
     public void setExamType(Integer examType) {
         this.examType = examType;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

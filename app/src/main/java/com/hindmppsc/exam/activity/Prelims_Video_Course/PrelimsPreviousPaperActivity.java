@@ -78,7 +78,6 @@ public class PrelimsPreviousPaperActivity extends BaseActivity {
                }else if (bundle.getString("material").equals("Preivious Paper")) {
                    GetPaperListOnServer();
                }
-
            } else if (Exam_type.equals("Syllabus")) {
                GetSyllabusListOnServer();
            } else {
@@ -90,7 +89,14 @@ public class PrelimsPreviousPaperActivity extends BaseActivity {
             @Override
             public void onRefresh() {
                 if (Exam_type.equals("Interview")) {
-                    GetInterviewPaperListOnServer();
+                    if (titleTextTv.getText().toString().equals("Ebook")) {
+                        GetInterviewPaperListOnServer();
+                    } else if (titleTextTv.getText().toString().equals("Video Course")) {
+                        GetInterviewPreviousVideoOnServer();
+                    }else if (titleTextTv.getText().toString().equals("Preivious Paper")) {
+                        GetPaperListOnServer();
+                    }
+
                 } else if (Exam_type.equals("Syllabus")) {
                     GetSyllabusListOnServer();
                 } else {
@@ -265,12 +271,13 @@ public class PrelimsPreviousPaperActivity extends BaseActivity {
                                 result.setTitle(Exam_type);
                                 resultArrayList.add(result);
                                 if (resultArrayList.size() > 0) {
-                                    LinearLayoutManager gridLayoutManager = new LinearLayoutManager(PrelimsPreviousPaperActivity.this);
+                                   LinearLayoutManager gridLayoutManager = new LinearLayoutManager(PrelimsPreviousPaperActivity.this);
                                     gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL); // set Horizontal Orientation
                                     paperListRcv.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
                                     Previous_paper_Adapter firstR_v_adapter = new Previous_paper_Adapter(PrelimsPreviousPaperActivity.this, resultArrayList, Exam_type);
                                     paperListRcv.setAdapter(firstR_v_adapter);
                                     firstR_v_adapter.notifyDataSetChanged();
+
                                 }
 
 

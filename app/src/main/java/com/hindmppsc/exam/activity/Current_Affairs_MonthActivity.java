@@ -102,6 +102,8 @@ public class Current_Affairs_MonthActivity extends BaseActivity {
                                 ErrorMessage.E("comes in if cond" + object.toString());
                                 Example example = gson.fromJson(object.toString(), Example.class);
                                 if (example.getResult().size() > 0) {
+                                    noDataFoundTv.setVisibility(View.GONE);
+                                    paperListRcv.setVisibility(View.VISIBLE);
                                     LinearLayoutManager gridLayoutManager = new LinearLayoutManager(Current_Affairs_MonthActivity.this);
                                     gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL); // set Horizontal Orientation
                                     paperListRcv.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView

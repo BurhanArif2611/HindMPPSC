@@ -14,37 +14,37 @@
         />
 
 <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="5"
-    android:id="@+id/top_layout"
-    android:gravity="center"
-    android:layout_margin="@dimen/_10sdp">
-    <ImageButton
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_burger_menu"
-        android:layout_weight="1"
-        android:id="@+id/drawer_img_btn"
-        android:background="@android:color/transparent"/>
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:layout_weight="3"
-        android:fontFamily="@font/poppins_regular"
-        android:textColor="@color/white"
-        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="5"
+        android:id="@+id/top_layout"
         android:gravity="center"
-        android:textSize="@dimen/text_size_20"/>
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_user"
-        android:layout_weight="0.5"
-        android:id="@+id/user_profile_img_btn"
-        android:background="@android:color/transparent"/>
+        android:layout_margin="@dimen/_10sdp">
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_burger_menu"
+            android:layout_weight="1"
+            android:id="@+id/drawer_img_btn"
+            android:background="@android:color/transparent"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Home"
+            android:layout_weight="3"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_20"/>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_user"
+            android:layout_weight="0.5"
+            android:id="@+id/user_profile_img_btn"
+            android:background="@android:color/transparent"/>
 
     <RelativeLayout
         android:id="@+id/badge_layout1"

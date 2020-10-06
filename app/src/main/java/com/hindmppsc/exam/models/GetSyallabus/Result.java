@@ -1,4 +1,4 @@
-package com.hindmppsc.exam.models.MockTestMains;
+package com.hindmppsc.exam.models.GetSyallabus;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -13,9 +13,6 @@ public class Result {
     @SerializedName("material_type_id")
     @Expose
     private Integer materialTypeId;
-    @SerializedName("sr_no")
-    @Expose
-    private String srNo;
     @SerializedName("url")
     @Expose
     private String url;
@@ -42,14 +39,6 @@ public class Result {
 
     public void setMaterialTypeId(Integer materialTypeId) {
         this.materialTypeId = materialTypeId;
-    }
-
-    public String getSrNo() {
-        return srNo;
-    }
-
-    public void setSrNo(String srNo) {
-        this.srNo = srNo;
     }
 
     public String getUrl() {

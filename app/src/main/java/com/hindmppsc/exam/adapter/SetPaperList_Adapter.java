@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hindmppsc.exam.R;
+import com.hindmppsc.exam.activity.PDFViewerActivity;
 import com.hindmppsc.exam.activity.Prelims_Video_Course.MaterialListActivity;
 import com.hindmppsc.exam.activity.Prelims_Video_Course.MockTestPrelimsActivity;
 import com.hindmppsc.exam.activity.SetPaperListActivity;
@@ -65,26 +66,61 @@ public class SetPaperList_Adapter extends RecyclerView.Adapter<SetPaperList_Adap
         holder.join_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id", String.valueOf(listCoupon.getMaterialTypeId()));
-                bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
-                bundle.putString("material", listCoupon.getSetPaper());
-                bundle.putString("paper", String.valueOf(listCoupon.getPaper()));
-                bundle.putString("Exam_type", Exam_type);
-                ErrorMessage.I(activity, MockTestPrelimsActivity.class, bundle);
+                if (Exam_type.toLowerCase().trim().contains("prelims")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", String.valueOf(listCoupon.getMaterialTypeId()));
+                    bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
+                    bundle.putString("material", listCoupon.getSetPaper());
+                    bundle.putString("paper", String.valueOf(listCoupon.getPaper()));
+                    bundle.putString("Exam_type", Exam_type);
+                    ErrorMessage.I(activity, MockTestPrelimsActivity.class, bundle);
+                } else if (Exam_type.contains("Mains")) {
+                    try{
+                        Bundle bundle = new Bundle();
+                        bundle.putString("image", listCoupon.getUrl());
+                        bundle.putString("title", String.valueOf(listCoupon.getPaper()));
+                        ErrorMessage.I(activity, PDFViewerActivity.class, bundle);
+                    }catch (Exception e){}
+                }else  {
+                    try{
+                        Bundle bundle = new Bundle();
+                        bundle.putString("image", listCoupon.getUrl());
+                        bundle.putString("title", String.valueOf(listCoupon.getPaper()));
+                        ErrorMessage.I(activity, PDFViewerActivity.class, bundle);
+                    }catch (Exception e){}
+                }
+
+
+
 
             }
         });
         holder.join_second_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("id", String.valueOf(listCoupon.getMaterialTypeId()));
-                bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
-                bundle.putString("material", listCoupon.getSetPaper());
-                bundle.putString("paper", String.valueOf(listCoupon.getPaper()));
-                bundle.putString("Exam_type", Exam_type);
-                ErrorMessage.I(activity, MockTestPrelimsActivity.class, bundle);
+                if (Exam_type.toLowerCase().trim().contains("prelims")) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("id", String.valueOf(listCoupon.getMaterialTypeId()));
+                    bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
+                    bundle.putString("material", listCoupon.getSetPaper());
+                    bundle.putString("paper", String.valueOf(listCoupon.getPaper()));
+                    bundle.putString("Exam_type", Exam_type);
+                    ErrorMessage.I(activity, MockTestPrelimsActivity.class, bundle);
+                } else if (Exam_type.contains("Mains")) {
+                    try{
+                        Bundle bundle = new Bundle();
+                        bundle.putString("image", listCoupon.getUrl());
+                        bundle.putString("title", String.valueOf(listCoupon.getPaper()));
+                        ErrorMessage.I(activity, PDFViewerActivity.class, bundle);
+                    }catch (Exception e){}
+                }else {
+                    try{
+                        Bundle bundle = new Bundle();
+                        bundle.putString("image", listCoupon.getUrl());
+                        bundle.putString("title", String.valueOf(listCoupon.getPaper()));
+                        ErrorMessage.I(activity, PDFViewerActivity.class, bundle);
+                    }catch (Exception e){}
+                }
             }
         });
     }

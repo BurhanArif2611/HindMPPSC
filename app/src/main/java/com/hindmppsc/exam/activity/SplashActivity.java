@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.blogspot.atifsoftwares.animatoolib.Animatoo;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
@@ -70,7 +71,7 @@ public class SplashActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 } else {
-                    if (Build.VERSION.SDK_INT >= 23) {
+                   /* if (Build.VERSION.SDK_INT >= 23) {
                         if (checkPermission()) {
                             ErrorMessage.E("checkPermission is come");
                             checkTimerIntent();
@@ -80,7 +81,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
                     } else {
                         checkTimerIntent();
-                    }
+                    }*/
                 }
             }
         });
@@ -163,11 +164,14 @@ public class SplashActivity extends AppCompatActivity {
                 try {
                     if (UserProfileHelper.getInstance().getUserProfileModel().size() > 0) {
                         ErrorMessage.I_clear(SplashActivity.this, DashboardActivity.class, null);
+                        Animatoo.animateFade(SplashActivity.this);
                     } else {
                         ErrorMessage.I_clear(SplashActivity.this,LoginActivity.class, null);
+                        Animatoo.animateFade(SplashActivity.this);
                     }
                 } catch (Exception e) {
                     ErrorMessage.I_clear(SplashActivity.this, LoginActivity.class, null);
+                    Animatoo.animateFade(SplashActivity.this);
                 }
 
             }

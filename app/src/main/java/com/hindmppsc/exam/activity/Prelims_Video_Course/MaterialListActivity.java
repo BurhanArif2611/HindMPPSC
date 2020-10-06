@@ -19,6 +19,7 @@ import com.hindmppsc.exam.activity.InterviewPreviousVideoActivity;
 import com.hindmppsc.exam.activity.Live_Classes.LiveClassActivity;
 import com.hindmppsc.exam.activity.Live_Classes.PaymentActivity;
 import com.hindmppsc.exam.activity.LoginActivity;
+import com.hindmppsc.exam.activity.PDFViewerActivity;
 import com.hindmppsc.exam.activity.Set_ListActivity;
 import com.hindmppsc.exam.activity.TermsConditionActivity;
 import com.hindmppsc.exam.adapter.Material_Type_Adapter;
@@ -86,7 +87,7 @@ public class MaterialListActivity extends BaseActivity {
         if (NetworkUtil.isNetworkAvailable(MaterialListActivity.this)) {
             final Dialog materialDialog = ErrorMessage.initProgressDialog(MaterialListActivity.this);
             LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
-            ErrorMessage.E("GetSubjectOnServer>" + "4" + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id());
+            ErrorMessage.E("GetSubjectOnServer>" + Exam_type_id + ">>" + SavedData.getIMEI_Number() + ">>" + UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id());
             Call<ResponseBody> call = apiService.exam_material_type(Exam_type_id, SavedData.getIMEI_Number(), UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id());
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
@@ -157,7 +158,7 @@ public class MaterialListActivity extends BaseActivity {
             bundle.putString("material", listCoupon.getMaterialType());
             bundle.putString("Video Course", Exam_type);
             ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
-        }else if (listCoupon.getPrice().equals("0") || listCoupon.getPrice().equals("")) {
+        } else if (listCoupon.getPrice().equals("0") || listCoupon.getPrice().equals("")) {
             Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
@@ -180,20 +181,22 @@ public class MaterialListActivity extends BaseActivity {
         Suscribe_type = listCoupon.getSubscribe();
 
         if (listCoupon.getSubscribe().equals("subscribe")) {
-            Bundle bundle = new Bundle();
+            /*Bundle bundle = new Bundle();
             bundle.putString("id", String.valueOf(listCoupon.getId()));
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
             bundle.putString("material", listCoupon.getMaterialType());
             bundle.putString("Video Course", listCoupon.getMaterialType());
-            ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
+            ErrorMessage.I(MaterialListActivity.this, MaterialListActivity.class, bundle);*/
+            GetSyllabusListOnServer(String.valueOf(listCoupon.getId()));
         } else {
             if (listCoupon.getPrice().equals("0") || listCoupon.getPrice().equals("")) {
-                Bundle bundle = new Bundle();
+              /*  Bundle bundle = new Bundle();
                 bundle.putString("id", String.valueOf(listCoupon.getId()));
                 bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
                 bundle.putString("material", listCoupon.getMaterialType());
                 bundle.putString("Video Course", listCoupon.getMaterialType());
-                ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
+                ErrorMessage.I(MaterialListActivity.this, MaterialListActivity.class, bundle);*/
+                GetSyllabusListOnServer(String.valueOf(listCoupon.getId()));
             } else {
                 Intent i = new Intent(MaterialListActivity.this, TermsConditionActivity.class);
                 i.putExtra("id", String.valueOf(listCoupon.getId()));
@@ -214,7 +217,7 @@ public class MaterialListActivity extends BaseActivity {
             bundle.putString("exam_type", String.valueOf(listCoupon.getExamType()));
             bundle.putString("material", listCoupon.getMaterialType());
             bundle.putString("Video Course", Exam_type);
-            ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
+            ErrorMessage.I(MaterialListActivity.this, MaterialListActivity.class, bundle);
         } else {
             Intent i = new Intent(MaterialListActivity.this, TermsConditionActivity.class);
             i.putExtra("id", String.valueOf(listCoupon.getId()));
@@ -458,7 +461,7 @@ public class MaterialListActivity extends BaseActivity {
                 bundle.putString("exam_type", data.getStringExtra("exam_type"));
                 bundle.putString("material", Material_type);
                 bundle.putString("Video Course", Exam_type);
-                ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
+                ErrorMessage.I(MaterialListActivity.this, MaterialListActivity.class, bundle);
 
 
             }
@@ -479,13 +482,13 @@ public class MaterialListActivity extends BaseActivity {
             }
         } else if (requestCode == 14) {
             if (resultCode == Activity.RESULT_OK) {
-                Bundle bundle = new Bundle();
+               /* Bundle bundle = new Bundle();
                 bundle.putString("id", data.getStringExtra("id"));
                 bundle.putString("exam_type", data.getStringExtra("exam_type"));
                 bundle.putString("material", Material_type);
                 bundle.putString("Video Course", Exam_type);
-                ErrorMessage.I(MaterialListActivity.this, PrelimsPreviousPaperActivity.class, bundle);
-
+                ErrorMessage.I(MaterialListActivity.this, MaterialListActivity.class, bundle);*/
+                GetSyllabusListOnServer(data.getStringExtra("id"));
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -494,5 +497,67 @@ public class MaterialListActivity extends BaseActivity {
         }
     }
 
+    private void GetSyllabusListOnServer(String Material_type_id) {
+        if (NetworkUtil.isNetworkAvailable(MaterialListActivity.this)) {
+            Dialog materialDialog = ErrorMessage.initProgressDialog(MaterialListActivity.this);
+            LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
+            Call<ResponseBody> call = apiService.syllabus_list_new(Exam_type_id, Material_type_id, SavedData.getIMEI_Number(), UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id());
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    ErrorMessage.E("Response" + response.code());
+                    if (response.isSuccessful()) {
+                        JSONObject object = null;
+                        try {
+                            swiperefresh.setRefreshing(false);
+                            materialDialog.dismiss();
+                            Gson gson = new Gson();
+                            object = new JSONObject(response.body().string());
+                            ErrorMessage.E("GetSyllabusListOnServer" + object.toString());
+                            //ErrorMessage.T(MaterialListActivity.this, object.getString("message"));
+                            if (object.getString("status").equals("200")) {
+                                ErrorMessage.E("GetSyllabusListOnServer" + object.toString());
+                                com.hindmppsc.exam.models.GetSyallabus.Example example = gson.fromJson(object.toString(), com.hindmppsc.exam.models.GetSyallabus.Example.class);
 
+
+                                Bundle bundle = new Bundle();
+                                bundle.putString("image", example.getResult().getUrl());
+                                bundle.putString("title", "Syllabus");
+                                ErrorMessage.I(MaterialListActivity.this, PDFViewerActivity.class, bundle);
+
+
+                            } else if (object.getString("status").equals("403")) {
+                                ErrorMessage.T(MaterialListActivity.this, object.getString("message"));
+                                UserProfileHelper.getInstance().delete();
+                                ErrorMessage.I_clear(MaterialListActivity.this, LoginActivity.class, null);
+                            } else {
+                                ErrorMessage.E("comes in else");
+                                ErrorMessage.T(MaterialListActivity.this, object.getString("message"));
+
+                            }
+                        } catch (Exception e) {
+                            swiperefresh.setRefreshing(false);
+                            e.printStackTrace();
+                            materialDialog.dismiss();
+                            ErrorMessage.E("Exceptions" + e);
+                        }
+                    } else {
+                        swiperefresh.setRefreshing(false);
+                        materialDialog.dismiss();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    t.printStackTrace();
+                    ErrorMessage.E("Falure login" + t);
+                    materialDialog.dismiss();
+                    swiperefresh.setRefreshing(false);
+                }
+            });
+        } else {
+            swiperefresh.setRefreshing(false);
+            ErrorMessage.T(MaterialListActivity.this, "No Internet");
+        }
+    }
 }

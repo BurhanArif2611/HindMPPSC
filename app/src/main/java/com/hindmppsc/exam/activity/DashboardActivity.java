@@ -1,5 +1,6 @@
 package com.hindmppsc.exam.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,9 +11,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +32,7 @@ import com.google.gson.Gson;
 import com.hindmppsc.exam.BuildConfig;
 import com.hindmppsc.exam.Firebase.Config;
 import com.hindmppsc.exam.R;
+import com.hindmppsc.exam.activity.Live_Classes.PaymentActivity;
 import com.hindmppsc.exam.activity.Live_Classes.SubjectActivity;
 import com.hindmppsc.exam.activity.Live_Classes.TaskForYou_InterviewsActivity;
 import com.hindmppsc.exam.activity.Live_Classes.TermsConditionActivity;
@@ -42,12 +46,15 @@ import com.hindmppsc.exam.utility.ErrorMessage;
 import com.hindmppsc.exam.utility.LoadInterface;
 import com.hindmppsc.exam.utility.NetworkUtil;
 import com.hindmppsc.exam.utility.SavedData;
+import com.hindmppsc.exam.utility.UserAccount;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,7 +65,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements PaymentResultListener {
 
     @BindView(R.id.live_course_layout)
     LinearLayout liveCourseLayout;
@@ -110,6 +117,9 @@ public class DashboardActivity extends AppCompatActivity {
     TextView aboutTv;
     @BindView(R.id.faq_tv)
     TextView faqTv;
+    @BindView(R.id.online_payment_tv)
+    TextView onlinePaymentTv;
+    private String Paid_Amount="";
 
 
     @Override
@@ -119,10 +129,10 @@ public class DashboardActivity extends AppCompatActivity {
         getApplicationContext().getSystemService(Context.WINDOW_SERVICE);
         setContentView(R.layout.activity_dashboard);
         ButterKnife.bind(this);
+        Checkout.preload(getApplicationContext());
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(DashboardActivity.this, drawerLayout, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-        SavedData.saveFCM_ID("123");
         swiperefresh.setColorSchemeResources(R.color.colorPrimary, android.R.color.holo_green_dark, android.R.color.holo_orange_dark, android.R.color.holo_blue_dark);
         swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -147,7 +157,7 @@ public class DashboardActivity extends AppCompatActivity {
         GetDataOnServer();
     }
 
-    @OnClick({R.id.drawer_img_btn, R.id.live_course_layout, R.id.user_profile_img_btn, R.id.my_purchase_tv, R.id.logoutItemNav, R.id.home_tv, R.id.notificans_btn, R.id.share_tv, R.id.help_tv, R.id.update_your_self_tv, R.id.today_gs_tv, R.id.task_for_interview_card, R.id.task_for_mains_card, R.id.prelims_video_course_cardview, R.id.helpItemNav, R.id.about_tv,R.id.faq_tv})
+    @OnClick({R.id.drawer_img_btn, R.id.live_course_layout, R.id.user_profile_img_btn, R.id.my_purchase_tv, R.id.logoutItemNav, R.id.home_tv, R.id.notificans_btn, R.id.share_tv, R.id.help_tv, R.id.update_your_self_tv, R.id.today_gs_tv, R.id.task_for_interview_card, R.id.task_for_mains_card, R.id.prelims_video_course_cardview, R.id.helpItemNav, R.id.about_tv, R.id.faq_tv, R.id.online_payment_tv})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.drawer_img_btn:
@@ -157,7 +167,7 @@ public class DashboardActivity extends AppCompatActivity {
             case R.id.live_course_layout:
                 ErrorMessage.I(DashboardActivity.this, SubjectActivity.class, null);
                 break;
-                case R.id.faq_tv:
+            case R.id.faq_tv:
                 ErrorMessage.I(DashboardActivity.this, FaqActivity.class, null);
                 break;
             case R.id.user_profile_img_btn:
@@ -165,6 +175,10 @@ public class DashboardActivity extends AppCompatActivity {
                 break;
             case R.id.my_purchase_tv:
                 ErrorMessage.I(DashboardActivity.this, MyPurchaseActivity.class, null);
+                break;
+            case R.id.online_payment_tv:
+
+                PayOnline_PopUP();
                 break;
             case R.id.helpItemNav:
                 Bundle bundle = new Bundle();
@@ -292,6 +306,30 @@ public class DashboardActivity extends AppCompatActivity {
         super.onResume();
     }
 
+    public void PayOnline_PopUP() {
+        final Dialog dialog = new Dialog(DashboardActivity.this);
+        dialog.setContentView(R.layout.enter_amount);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        final Button submit_btn = (Button) dialog.findViewById(R.id.submit_btn);
+        final EditText enter_amount_etv = (EditText) dialog.findViewById(R.id.enter_amount_etv);
+
+
+        submit_btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+              if (UserAccount.isEmpty(enter_amount_etv)) {
+                  dialog.dismiss();
+                  Paid_Amount=enter_amount_etv.getText().toString();
+                  startPayment(enter_amount_etv.getText().toString());
+              }else {
+                  UserAccount.EditTextPointer.setError("This Field Can't be Empty !");
+                  UserAccount.EditTextPointer.requestFocus();
+              }
+            }
+        });
+
+        dialog.show();
+    }
     private void GetDataOnServer() {
         if (NetworkUtil.isNetworkAvailable(DashboardActivity.this)) {
             Dialog materialDialog = ErrorMessage.initProgressDialog(DashboardActivity.this);
@@ -313,50 +351,53 @@ public class DashboardActivity extends AppCompatActivity {
                             if (object.getString("status").equals("200")) {
                                 ErrorMessage.E("prv_paper_prelims" + object.toString());
                                 Example example = gson.fromJson(object.toString(), Example.class);
-                                ArrayList<Result> resultArrayList=new ArrayList<>();
-                                 if (example.getResult().size() > 0) {
-                                  for (int i=0;i<example.getResult().size();i++){
-                                      if (example.getResult().get(i).getExam().equals("Live Class") ){
-                                          Result result=new Result();
-                                          result.setId(example.getResult().get(i).getId());
-                                          result.setExam(example.getResult().get(i).getExam());
-                                          result.setImage(example.getResult().get(i).getImage());
-                                          resultArrayList.add(result);
-                                      }
-                                  }for (int i=0;i<example.getResult().size();i++){
-                                      if (example.getResult().get(i).getExam().equals("Today GS") ){
-                                          Result result=new Result();
-                                          result.setId(example.getResult().get(i).getId());
-                                          result.setExam(example.getResult().get(i).getExam());
-                                          result.setImage(example.getResult().get(i).getImage());
-                                          resultArrayList.add(result);
-                                      }
-                                  }for (int i=0;i<example.getResult().size();i++){
-                                      if (example.getResult().get(i).getExam().equals("Task For You") ){
-                                          Result result=new Result();
-                                          result.setId(example.getResult().get(i).getId());
-                                          result.setExam(example.getResult().get(i).getExam());
-                                          result.setImage(example.getResult().get(i).getImage());
-                                          resultArrayList.add(result);
-                                      }
-                                  }for (int i=0;i<example.getResult().size();i++){
-                                      if (example.getResult().get(i).getExam().equals("Update Your Self") ){
-                                          Result result=new Result();
-                                          result.setId(example.getResult().get(i).getId());
-                                          result.setExam(example.getResult().get(i).getExam());
-                                          result.setImage(example.getResult().get(i).getImage());
-                                          resultArrayList.add(result);
-                                      }
-                                  }
-                                  for (int i=0;i<example.getResult().size();i++){
-                                      if (!example.getResult().get(i).getExam().equals("Live Class") && !example.getResult().get(i).getExam().equals("Today GS") && !example.getResult().get(i).getExam().equals("Task For You") &&!example.getResult().get(i).getExam().equals("Update Your Self")){
-                                          Result result=new Result();
-                                          result.setId(example.getResult().get(i).getId());
-                                          result.setExam(example.getResult().get(i).getExam());
-                                          result.setImage(example.getResult().get(i).getImage());
-                                          resultArrayList.add(result);
-                                      }
-                                  }
+                                ArrayList<Result> resultArrayList = new ArrayList<>();
+                                if (example.getResult().size() > 0) {
+                                    for (int i = 0; i < example.getResult().size(); i++) {
+                                        if (example.getResult().get(i).getExam().equals("Live Class")) {
+                                            Result result = new Result();
+                                            result.setId(example.getResult().get(i).getId());
+                                            result.setExam(example.getResult().get(i).getExam());
+                                            result.setImage(example.getResult().get(i).getImage());
+                                            resultArrayList.add(result);
+                                        }
+                                    }
+                                    for (int i = 0; i < example.getResult().size(); i++) {
+                                        if (example.getResult().get(i).getExam().equals("Today GS")) {
+                                            Result result = new Result();
+                                            result.setId(example.getResult().get(i).getId());
+                                            result.setExam(example.getResult().get(i).getExam());
+                                            result.setImage(example.getResult().get(i).getImage());
+                                            resultArrayList.add(result);
+                                        }
+                                    }
+                                    for (int i = 0; i < example.getResult().size(); i++) {
+                                        if (example.getResult().get(i).getExam().equals("Task For You")) {
+                                            Result result = new Result();
+                                            result.setId(example.getResult().get(i).getId());
+                                            result.setExam(example.getResult().get(i).getExam());
+                                            result.setImage(example.getResult().get(i).getImage());
+                                            resultArrayList.add(result);
+                                        }
+                                    }
+                                    for (int i = 0; i < example.getResult().size(); i++) {
+                                        if (example.getResult().get(i).getExam().equals("Update Your Self")) {
+                                            Result result = new Result();
+                                            result.setId(example.getResult().get(i).getId());
+                                            result.setExam(example.getResult().get(i).getExam());
+                                            result.setImage(example.getResult().get(i).getImage());
+                                            resultArrayList.add(result);
+                                        }
+                                    }
+                                    for (int i = 0; i < example.getResult().size(); i++) {
+                                        if (!example.getResult().get(i).getExam().equals("Live Class") && !example.getResult().get(i).getExam().equals("Today GS") && !example.getResult().get(i).getExam().equals("Task For You") && !example.getResult().get(i).getExam().equals("Update Your Self")) {
+                                            Result result = new Result();
+                                            result.setId(example.getResult().get(i).getId());
+                                            result.setExam(example.getResult().get(i).getExam());
+                                            result.setImage(example.getResult().get(i).getImage());
+                                            resultArrayList.add(result);
+                                        }
+                                    }
                                     LinearLayoutManager gridLayoutManager = new LinearLayoutManager(DashboardActivity.this);
                                     gridLayoutManager.setOrientation(LinearLayoutManager.VERTICAL); // set Horizontal Orientation
                                     dashboardRcv.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
@@ -396,6 +437,80 @@ public class DashboardActivity extends AppCompatActivity {
         } else {
             ErrorMessage.T(DashboardActivity.this, "No Internet");
             swiperefresh.setRefreshing(false);
+        }
+    }
+
+    public void startPayment(String total_amount) {
+        /*
+          You need to pass current activity in order to let Razorpay create CheckoutActivity
+         */
+        final Activity activity = this;
+        final Checkout co = new Checkout();
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", getResources().getString(R.string.app_name));
+            options.put("description", "Course Suscribtion");
+            //You can omit the image option to fetch the image from dashboard
+            //options.put("image", "http://rentonus.com/RentOnUs/assets/FrontEnd/img/logo.png");
+            options.put("currency", "INR");
+            options.put("amount", total_amount + "00");
+
+            JSONObject preFill = new JSONObject();
+            preFill.put("email", UserProfileHelper.getInstance().getUserProfileModel().get(0).getEmaiiId());
+            preFill.put("contact", UserProfileHelper.getInstance().getUserProfileModel().get(0).getUserPhone());
+            options.put("prefill", preFill);
+            co.open(activity, options);
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        PayOnline(s);
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+
+    }
+
+    private void PayOnline(String s) {
+        if (NetworkUtil.isNetworkAvailable(DashboardActivity.this)) {
+            final Dialog materialDialog = ErrorMessage.initProgressDialog(DashboardActivity.this);
+            LoadInterface apiService = AppConfig.getClient().create(LoadInterface.class);
+            Call<ResponseBody> call = apiService.purchase_data(UserProfileHelper.getInstance().getUserProfileModel().get(0).getUser_id(), s, Paid_Amount,Paid_Amount, "online", SavedData.getIMEI_Number());
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    ErrorMessage.E("Response" + response.code());
+                    if (response.isSuccessful()) {
+                        JSONObject object = null;
+                        try {
+                            materialDialog.dismiss();
+                            object = new JSONObject(response.body().string());
+                            ErrorMessage.E("Current_Affairs_Month" + object.toString());
+                            ErrorMessage.T(DashboardActivity.this, object.getString("message"));
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                            materialDialog.dismiss();
+                            ErrorMessage.E("Exceptions" + e);
+                        }
+                    } else {
+                        materialDialog.dismiss();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    t.printStackTrace();
+                    ErrorMessage.E("Falure login" + t);
+                    materialDialog.dismiss();
+                }
+            });
+        } else {
+            ErrorMessage.T(DashboardActivity.this, "No Internet");
         }
     }
 }

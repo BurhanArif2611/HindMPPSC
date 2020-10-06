@@ -117,7 +117,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
             NotificationUtils notificationUtils = new NotificationUtils(getApplicationContext());
             notificationUtils.playNotificationSound();
-
         }
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             final String ANDROID_CHANNEL_ID = "com.hindmppsc.exam.ANDROID";

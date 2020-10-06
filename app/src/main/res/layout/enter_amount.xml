@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="@drawable/corners"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_10sdp"
+            android:text="Pay Online"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/primary_text"
+            android:textSize="@dimen/text_size_20"
+            android:id="@+id/title_tv"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_margin="@dimen/_10sdp"
+           >
+
+            <EditText
+                android:id="@+id/enter_amount_etv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Payable Amount"
+                android:paddingLeft="@dimen/_10sdp"
+                android:layout_gravity="center_vertical|center"
+                android:inputType="phone"
+                android:gravity="start|center"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/primary_text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:background="@drawable/background_corner_colour"
+                android:text="Pay"
+                android:fontFamily="@font/poppins_regular"
+                android:textColor="@color/colorPrimary" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

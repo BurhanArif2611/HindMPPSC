@@ -437,4 +437,8 @@ public interface LoadInterface {
     @GET("faq")
     Call<ResponseBody> getfaq();
 
+    @POST("purchase_data")
+    @FormUrlEncoded
+    Call<ResponseBody> purchase_data(@Field(value = "token") String token, @Field(value = "tranjection_id") String tranjection_id, @Field(value = "paid_amount") String paid_amount, @Field(value = "total_amount") String total_amount, @Field(value = "payment_method") String payment_method,@Field(value = "imei") String imei);
+
 }

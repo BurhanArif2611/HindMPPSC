@@ -94,11 +94,7 @@ public class ForgotActivity extends AppCompatActivity {
                                 ErrorMessage.T(ForgotActivity.this, object.getString("message"));
                                 materialDialog.dismiss();
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            materialDialog.dismiss();
-                            ErrorMessage.E("JsonException" + e);
-                        } catch (Exception e) {
+                        }  catch (Exception e) {
                             e.printStackTrace();
                             materialDialog.dismiss();
                             ErrorMessage.E("Exceptions" + e);
@@ -134,6 +130,7 @@ public class ForgotActivity extends AppCompatActivity {
 
         done_btn.setVisibility(View.GONE);
         submit_btn.setVisibility(View.GONE);
+        done_payment_btn.setVisibility(View.VISIBLE);
 
         done_payment_btn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

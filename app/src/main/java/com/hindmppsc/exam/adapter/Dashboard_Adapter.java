@@ -37,11 +37,9 @@ public class Dashboard_Adapter extends RecyclerView.Adapter<Dashboard_Adapter.My
     Context activity;
     List<Result> arrayList;
 
-
     public Dashboard_Adapter(Context policyActivity, List<Result> arrayList) {
         this.activity = policyActivity;
         this.arrayList = arrayList;
-
     }
 
     @NonNull

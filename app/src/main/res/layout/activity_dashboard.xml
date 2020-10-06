@@ -198,6 +198,19 @@
                         android:fontFamily="@font/poppins_regular"
                         android:id="@+id/help_tv"/>
                     <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:drawableLeft="@drawable/ic_mobile_payment"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/_4sdp"
+                        android:text="Pay Online"
+                        android:textColor="@color/primary_text"
+                        android:textSize="@dimen/text_size_16"
+                        android:fontFamily="@font/poppins_regular"
+                        android:id="@+id/online_payment_tv"/>
+                    <TextView
                         android:id="@+id/share_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
