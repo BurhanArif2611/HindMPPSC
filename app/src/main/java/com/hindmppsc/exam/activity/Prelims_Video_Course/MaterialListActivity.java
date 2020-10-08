@@ -177,7 +177,7 @@ public class MaterialListActivity extends BaseActivity {
 
     public void getsyllabus(Result listCoupon) {
         Material_type = listCoupon.getMaterialType();
-        Exam_type = listCoupon.getMaterialType();
+       // Exam_type = listCoupon.getMaterialType();
         Suscribe_type = listCoupon.getSubscribe();
 
         if (listCoupon.getSubscribe().equals("subscribe")) {
