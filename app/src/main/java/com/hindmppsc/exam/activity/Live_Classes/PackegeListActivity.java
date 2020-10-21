@@ -44,6 +44,8 @@ public class PackegeListActivity extends BaseActivity {
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swiperefresh;
     private String ExamType="";
+    private String Suscribe_type="";
+
     @Override
     protected int getContentResId() {
         return R.layout.activity_packege_list;
@@ -139,8 +141,9 @@ public class PackegeListActivity extends BaseActivity {
             ErrorMessage.T(PackegeListActivity.this, "No Internet");
         }
     }
-    public void GO_TO_NextPage(String id,String Exam_type,String Price){
+    public void GO_TO_NextPage(String id,String Exam_type,String Price,String Suscribe){
         ExamType=Exam_type;
+        Suscribe_type=Suscribe;
         Intent i = new Intent(PackegeListActivity.this, TermsConditionActivity.class);
         i.putExtra("id", id);
         i.putExtra("exam_type", Exam_type);
@@ -159,6 +162,7 @@ public class PackegeListActivity extends BaseActivity {
                 i.putExtra("exam_type", data.getStringExtra("exam_type"));
                 i.putExtra("price", data.getStringExtra("price"));
                 i.putExtra("fromActivity", "Payment");
+                i.putExtra("Suscribe_type", Suscribe_type);
                 startActivityForResult(i, 2);
             }
             if (resultCode == Activity.RESULT_CANCELED) {

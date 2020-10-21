@@ -50,6 +50,7 @@ public class TaskForMains_Activity extends BaseActivity {
 
     @Override
     protected int getContentResId() {
+
         return R.layout.activity_task_for_mains_;
     }
 

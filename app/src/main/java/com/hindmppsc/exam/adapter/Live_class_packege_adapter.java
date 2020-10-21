@@ -82,7 +82,7 @@ public class Live_class_packege_adapter extends RecyclerView.Adapter<Live_class_
                         bundle.putString("exam_type", listCoupon.getExamType());
                         bundle.putString("price", listCoupon.getPrice());
                         // ErrorMessage.I(activity, PaymentActivity.class, bundle);
-                        ((PackegeListActivity) activity).GO_TO_NextPage(listCoupon.getId(), listCoupon.getExamType(), listCoupon.getPrice());
+                        ((PackegeListActivity) activity).GO_TO_NextPage(listCoupon.getId(), listCoupon.getExamType(), listCoupon.getPrice(),listCoupon.getSubscribe());
                     } else {
                         Bundle bundle = new Bundle();
                         bundle.putString("id", Subject_id);

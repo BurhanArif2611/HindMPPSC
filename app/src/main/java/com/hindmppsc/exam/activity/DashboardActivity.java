@@ -177,7 +177,6 @@ public class DashboardActivity extends AppCompatActivity implements PaymentResul
                 ErrorMessage.I(DashboardActivity.this, MyPurchaseActivity.class, null);
                 break;
             case R.id.online_payment_tv:
-
                 PayOnline_PopUP();
                 break;
             case R.id.helpItemNav:
@@ -468,6 +467,7 @@ public class DashboardActivity extends AppCompatActivity implements PaymentResul
 
     @Override
     public void onPaymentSuccess(String s) {
+
         PayOnline(s);
     }
 

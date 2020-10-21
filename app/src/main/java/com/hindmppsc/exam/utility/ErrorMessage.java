@@ -35,7 +35,7 @@ public class ErrorMessage {
     }
 
     public static void E(String msg) {
-        if (true)
+     if (true)
             Log.e("Log.E By Burhan ", msg);
     }
 
