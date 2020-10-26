@@ -83,6 +83,7 @@ public class  PaperListActivity extends BaseActivity {
                     if (response.isSuccessful()) {
                         JSONObject object = null;
                         try {
+
                             swiperefresh.setRefreshing(false);
                             materialDialog.dismiss();
                             Gson gson = new Gson();
